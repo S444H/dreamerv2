@@ -2,7 +2,6 @@ import gym
 import gym_minigrid
 import dreamerv2.api as dv2
 
-
 config = dv2.defaults.update({
     'logdir': '~/logdir/minigrid',
     'log_every': 1e3,
