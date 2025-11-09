@@ -99,6 +99,8 @@ def main():
         env = common.TimeLimit(env, config.time_limit)
         return env
 
+
+
     def per_episode(ep, mode):
         length = len(ep['reward']) - 1
         score = float(ep['reward'].astype(np.float64).sum())
