@@ -156,6 +156,8 @@ def main():
         train_driver.reset()
         eval_driver.reset()
 
+#-----------------------------------------------------------------------------------------------------------------------
+
     print('Create agent.')
     train_dataset = iter(train_replay.dataset(**config.dataset))
     report_dataset = iter(train_replay.dataset(**config.dataset))
@@ -173,6 +175,8 @@ def main():
         *args, mode='explore' if should_expl(step) else 'train')
     eval_policy = lambda *args: agnt.policy(*args, mode='eval')
 
+#-----------------------------------------------------------------------------------------------------------------------
+
     def train_step(tran, worker):
         if should_train(step):
             for _ in range(config.train_steps):
@@ -186,6 +190,8 @@ def main():
             logger.write(fps=True)
 
     train_driver.on_step(train_step)
+
+#-----------------------------------------------------------------------------------------------------------------------
 
     while step < config.steps:
         logger.write()

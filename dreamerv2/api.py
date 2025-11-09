@@ -6,6 +6,7 @@ import re
 import sys
 import warnings
 
+# Block unnecessary logs
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 logging.getLogger().setLevel('ERROR')
 warnings.filterwarnings('ignore', '.*box bound precision lowered.*')
@@ -19,15 +20,10 @@ import ruamel.yaml as yaml
 import agent
 import common
 
-from common import Config
-from common import GymWrapper
-from common import RenderImage
-from common import TerminalOutput
-from common import JSONLOutput
-from common import TensorBoardOutput
 
 configs = yaml.safe_load(
-    (pathlib.Path(__file__).parent / 'configs.yaml').read_text())
+    (pathlib.Path(__file__).parent / 'configs.yaml').read_text()
+)
 defaults = common.Config(configs.pop('defaults'))
 
 
