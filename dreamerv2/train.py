@@ -77,7 +77,7 @@ def main():
     should_video_eval = common.Every(config.eval_every)
     should_expl = common.Until(config.expl_until // config.action_repeat)
 
-
+#-----------------------------------------------------------------------------------------------------------------------
 
     def make_env(mode):
         suite, task = config.task.split('_', 1)
@@ -101,7 +101,7 @@ def main():
         env = common.TimeLimit(env, config.time_limit)
         return env
 
-#-----------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------
 
     def per_episode(ep, mode):
         length = len(ep['reward']) - 1
