@@ -29,8 +29,9 @@ import common
 
 
 def main():
-    configs = yaml.safe_load((
-                                     pathlib.Path(sys.argv[0]).parent / 'configs.yaml').read_text())
+    configs = yaml.safe_load(
+        (pathlib.Path(sys.argv[0]).parent / 'configs.yaml').read_text()
+    )
     parsed, remaining = common.Flags(configs=['defaults']).parse(known_only=True)
     config = common.Config(configs['defaults'])
     for name in parsed.configs:
@@ -74,6 +75,8 @@ def main():
     should_video_eval = common.Every(config.eval_every)
     should_expl = common.Until(config.expl_until // config.action_repeat)
 
+
+
     def make_env(mode):
         suite, task = config.task.split('_', 1)
         if suite == 'dmc':
@@ -116,6 +119,8 @@ def main():
         replay = dict(train=train_replay, eval=eval_replay)[mode]
         logger.add(replay.stats, prefix=mode)
         logger.write()
+
+
 
     print('Create envs.')
     num_eval_envs = min(config.envs, config.eval_eps)
