@@ -14,6 +14,7 @@ try:
 except ImportError:
     pass
 
+# Block unnecessary logs
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 logging.getLogger().setLevel('ERROR')
 warnings.filterwarnings('ignore', '.*box bound precision lowered.*')
@@ -45,7 +46,7 @@ def main():
     print('Logdir', logdir)
 
     import tensorflow as tf
-    tf.config.experimental_run_functions_eagerly(not config.jit)
+    tf.config.experimental_run_functions_eagerly(not config.jit)  # Eager/Graph
     message = 'No GPU found. To actually train on CPU remove this assert.'
     assert tf.config.experimental.list_physical_devices('GPU'), message
     for gpu in tf.config.experimental.list_physical_devices('GPU'):
@@ -59,7 +60,8 @@ def main():
     eval_replay = common.Replay(logdir / 'eval_episodes', **dict(
         capacity=config.replay.capacity // 10,
         minlen=config.dataset.length,
-        maxlen=config.dataset.length))
+        maxlen=config.dataset.length)
+                                )
     step = common.Counter(train_replay.stats['total_steps'])
     outputs = [
         common.TerminalOutput(),
@@ -99,7 +101,7 @@ def main():
         env = common.TimeLimit(env, config.time_limit)
         return env
 
-
+#-----------------------------------------------------------------------------------------------------------------------
 
     def per_episode(ep, mode):
         length = len(ep['reward']) - 1
@@ -122,7 +124,7 @@ def main():
         logger.add(replay.stats, prefix=mode)
         logger.write()
 
-
+#-----------------------------------------------------------------------------------------------------------------------
 
     print('Create envs.')
     num_eval_envs = min(config.envs, config.eval_eps)
