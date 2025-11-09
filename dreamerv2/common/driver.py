@@ -31,7 +31,8 @@ class Driver:
         while step < steps or episode < episodes:
             obs = {
                 i: self._envs[i].reset()
-                for i, ob in enumerate(self._obs) if ob is None or ob['is_last']}
+                for i, ob in enumerate(self._obs) if ob is None or ob['is_last']
+            }
             for i, ob in obs.items():
                 self._obs[i] = ob() if callable(ob) else ob
                 act = {k: np.zeros(v.shape) for k, v in self._act_spaces[i].items()}

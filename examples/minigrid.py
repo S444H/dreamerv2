@@ -1,5 +1,6 @@
+# gym==0.23.0、gym-minigrid==1.1.0
 import gym
-import gym_minigrid
+from gym_minigrid.wrappers import RGBImgPartialObsWrapper, ImgObsWrapper
 import dreamerv2.api as dv2
 
 config = dv2.defaults.update({
@@ -13,5 +14,6 @@ config = dv2.defaults.update({
 }).parse_flags()
 
 env = gym.make('MiniGrid-DoorKey-6x6-v0')
-env = gym_minigrid.wrappers.RGBImgPartialObsWrapper(env)
+env = RGBImgPartialObsWrapper(env)
+env = ImgObsWrapper(env)
 dv2.train(env, config)
