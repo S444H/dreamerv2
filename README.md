@@ -1,7 +1,3 @@
-**Status:** Stable release
-
-[![PyPI](https://img.shields.io/pypi/v/dreamerv2.svg)](https://pypi.python.org/pypi/dreamerv2/#history)
-
 # Mastering Atari with Discrete World Models
 
 Implementation of the [DreamerV2][website] agent in TensorFlow 2. Training
@@ -57,44 +53,7 @@ For more information:
 - [Project website](https://danijar.com/dreamerv2/)
 - [Research paper](https://arxiv.org/pdf/2010.02193.pdf)
 
-## Using the Package
-
-The easiest way to run DreamerV2 on new environments is to install the package
-via `pip3 install dreamerv2`. The code automatically detects whether the
-environment uses discrete or continuous actions. Here is a usage example that
-trains DreamerV2 on the MiniGrid environment:
-
-```python
-import gym
-import gym_minigrid
-import dreamerv2.api as dv2
-
-config = dv2.defaults.update({
-    'logdir': '~/logdir/minigrid',
-    'log_every': 1e3,
-    'train_every': 10,
-    'prefill': 1e5,
-    'actor_ent': 3e-3,
-    'loss_scales.kl': 1.0,
-    'discount': 0.99,
-}).parse_flags()
-
-env = gym.make('MiniGrid-DoorKey-6x6-v0')
-env = gym_minigrid.wrappers.RGBImgPartialObsWrapper(env)
-dv2.train(env, config)
-```
-
 ## Manual Instructions
-
-To modify the DreamerV2 agent, clone the repository and follow the instructions
-below. There is also a Dockerfile available, in case you do not want to install
-the dependencies on your system.
-
-Get dependencies:
-
-```sh
-pip3 install tensorflow==2.6.0 tensorflow_probability ruamel.yaml 'gym[atari]' dm_control
-```
 
 Train on Atari:
 

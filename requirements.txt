@@ -1,2 +1,8 @@
+numpy==1.19.5
+ruamel.yaml==0.17.21
+
 gym==0.23.0
 gym-minigrid==1.1.0
+
+tensorflow==2.6.0
+tensorflow-probability==0.12.2
