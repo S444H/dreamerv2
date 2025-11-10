@@ -64,9 +64,8 @@ class Module(tf.Module):
 
 class Optimizer(tf.Module):
 
-    def __init__(
-            self, name, lr, eps=1e-4, clip=None, wd=None,
-            opt='adam', wd_pattern=r'.*'):
+    def __init__(self, name, lr, eps=1e-4, clip=None, wd=None, opt='adam', wd_pattern=r'.*'):
+        super().__init__(name)
         assert 0 <= wd < 1
         assert not clip or 1 <= clip
         self._name = name

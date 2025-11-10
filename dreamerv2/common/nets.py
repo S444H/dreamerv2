@@ -6,6 +6,9 @@ from tensorflow.keras import layers as tfkl
 from tensorflow_probability import distributions as tfd
 from tensorflow.keras.mixed_precision import experimental as prec
 
+import pathlib
+import sys
+sys.path.append(str(pathlib.Path(__file__).parent.parent))
 import common
 
 
