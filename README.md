@@ -82,36 +82,6 @@ python3 common/plot.py --indir ~/logdir --outdir ~/plots \
   --xaxis step --yaxis eval_return --bins 1e6
 ```
 
-## Docker Instructions
-
-The [Dockerfile](https://github.com/danijar/dreamerv2/blob/main/Dockerfile)
-lets you run DreamerV2 without installing its dependencies in your system. This
-requires you to have Docker with GPU access set up.
-
-Check your setup:
-
-```sh
-docker run -it --rm --gpus all tensorflow/tensorflow:2.4.2-gpu nvidia-smi
-```
-
-Train on Atari:
-
-```sh
-docker build -t dreamerv2 .
-docker run -it --rm --gpus all -v ~/logdir:/logdir dreamerv2 \
-  python3 dreamerv2/train.py --logdir /logdir/atari_pong/dreamerv2/1 \
-    --configs atari --task atari_pong
-```
-
-Train on DM Control:
-
-```sh
-docker build -t dreamerv2 . --build-arg MUJOCO_KEY="$(cat ~/.mujoco/mjkey.txt)"
-docker run -it --rm --gpus all -v ~/logdir:/logdir dreamerv2 \
-  python3 dreamerv2/train.py --logdir /logdir/dmc_walker_walk/dreamerv2/1 \
-    --configs dmc_vision --task dmc_walker_walk
-```
-
 ## Tips
 
 - **Efficient debugging.** You can use the `debug` config as in `--configs
