@@ -8,6 +8,7 @@ import expl
 class Agent(common.Module):
 
     def __init__(self, config, obs_space, act_space, step):
+        super().__init__()
         self.config = config
         self.obs_space = obs_space
         self.act_space = act_space['action']
@@ -81,6 +82,7 @@ class Agent(common.Module):
 class WorldModel(common.Module):
 
     def __init__(self, config, obs_space, tfstep):
+        super().__init__()
         shapes = {k: tuple(v.shape) for k, v in obs_space.items()}
         self.config = config
         self.tfstep = tfstep
@@ -205,6 +207,7 @@ class WorldModel(common.Module):
 class ActorCritic(common.Module):
 
     def __init__(self, config, act_space, tfstep):
+        super().__init__()
         self.config = config
         self.act_space = act_space
         self.tfstep = tfstep
@@ -319,9 +322,7 @@ class ActorCritic(common.Module):
             bootstrap=value[-1],
             lambda_=self.config.discount_lambda,
             axis=0)
-        metrics = {}
-        metrics['critic_slow'] = value.mean()
-        metrics['critic_target'] = target.mean()
+        metrics = {'critic_slow': value.mean(), 'critic_target': target.mean()}
         return target, metrics
 
     def update_slow_target(self):
